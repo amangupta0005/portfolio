@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Copy, Check, ArrowUpRight, Send, Mail, MapPin, Phone } from "lucide-react";
+import { Copy, Check, ArrowUpRight, Send } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/SocialIcons";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 
@@ -11,9 +11,10 @@ export default function Contact() {
   const [copied, setCopied] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(personal.email);
+    navigator.clipboard.writeText("ag79216767@gmail.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -21,43 +22,35 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("submitting");
+    setErrorMsg("");
 
     try {
-      // Using Web3Forms free tier to deliver the message straight to ag7921676@gmail.com
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const formData = new FormData();
+      formData.append("access_key", "de45b6e9-0176-4a24-877f-442617c57878");
+      formData.append("name", form.name);
+      formData.append("email", form.email);
+      formData.append("message", form.message);
+      formData.append("subject", `New Portfolio Message from ${form.name}`);
+      formData.append("from_name", "Portfolio Contact Form");
+
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: "f71424bf-ae9b-43a0-be87-5732bb649c0d", // Standard direct delivery key
-          name: form.name,
-          email: form.email,
-          message: form.message,
-          subject: `Portfolio message from ${form.name}`,
-          to: personal.email,
-        }),
+        body: formData,
       });
 
-      if (res.ok) {
+      const data = await response.json();
+
+      if (data.success) {
         setStatus("success");
         setForm({ name: "", email: "", message: "" });
       } else {
-        // Fallback to direct mailto if API fails
-        fallbackMailto();
+        setStatus("error");
+        setErrorMsg(data.message || "Failed to deliver message. Please email directly.");
       }
     } catch (err) {
-      fallbackMailto();
+      setStatus("error");
+      setErrorMsg("Network error. Please try again or email ag79216767@gmail.com directly.");
     }
-  };
-
-  const fallbackMailto = () => {
-    setStatus("success");
-    const mailto = `mailto:${personal.email}?subject=${encodeURIComponent(
-      `Portfolio message from ${form.name}`
-    )}&body=${encodeURIComponent(`${form.message}\n\nSender: ${form.name} (${form.email})`)}`;
-    window.location.href = mailto;
   };
 
   return (
@@ -80,10 +73,10 @@ export default function Contact() {
               <div className="text-xs font-mono text-slate-500 uppercase">Direct Email</div>
               <div className="flex items-center justify-between mt-1">
                 <a
-                  href={`mailto:${personal.email}`}
+                  href="mailto:ag79216767@gmail.com"
                   className="text-sm font-mono text-sky-400 hover:underline"
                 >
-                  {personal.email}
+                  ag79216767@gmail.com
                 </a>
                 <button
                   onClick={handleCopy}
@@ -145,10 +138,10 @@ export default function Contact() {
               <div className="w-12 h-12 rounded-full bg-emerald-950 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-800">
                 <Check className="w-6 h-6" />
               </div>
-              <h4 className="text-lg font-bold text-white">Message Sent Successfully!</h4>
+              <h4 className="text-lg font-bold text-white">Message Delivered to Inbox!</h4>
               <p className="text-xs text-slate-400 leading-relaxed max-w-sm mx-auto">
                 Thank you for reaching out. Your message was dispatched directly to{" "}
-                <span className="text-sky-400 font-mono">{personal.email}</span>. I&apos;ll get back to you shortly.
+                <span className="text-sky-400 font-mono">ag79216767@gmail.com</span>. I will respond as soon as possible.
               </p>
               <button
                 onClick={() => setStatus("idle")}
@@ -201,12 +194,18 @@ export default function Contact() {
                 />
               </div>
 
+              {status === "error" && (
+                <div className="text-xs text-rose-400 font-mono">
+                  {errorMsg}
+                </div>
+              )}
+
               <button
                 type="submit"
                 disabled={status === "submitting"}
                 className="w-full py-3 px-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold font-mono text-xs transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50 shadow-sm"
               >
-                <span>{status === "submitting" ? "Sending Message..." : "Send Message"}</span>
+                <span>{status === "submitting" ? "Sending to Inbox..." : "Send Message"}</span>
                 <Send className="w-3.5 h-3.5" />
               </button>
             </form>
