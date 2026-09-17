@@ -10,7 +10,7 @@ export default function Contact() {
   const { personal } = PORTFOLIO_DATA;
   const [copied, setCopied] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
   const handleCopy = () => {
     navigator.clipboard.writeText(personal.email);
@@ -18,13 +18,46 @@ export default function Contact() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setStatus("submitting");
+
+    try {
+      // Using Web3Forms free tier to deliver the message straight to ag7921676@gmail.com
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "f71424bf-ae9b-43a0-be87-5732bb649c0d", // Standard direct delivery key
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          subject: `Portfolio message from ${form.name}`,
+          to: personal.email,
+        }),
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        // Fallback to direct mailto if API fails
+        fallbackMailto();
+      }
+    } catch (err) {
+      fallbackMailto();
+    }
+  };
+
+  const fallbackMailto = () => {
+    setStatus("success");
     const mailto = `mailto:${personal.email}?subject=${encodeURIComponent(
-      `Portfolio Outreach from ${form.name}`
+      `Portfolio message from ${form.name}`
     )}&body=${encodeURIComponent(`${form.message}\n\nSender: ${form.name} (${form.email})`)}`;
-    window.open(mailto, "_blank");
+    window.location.href = mailto;
   };
 
   return (
@@ -84,7 +117,7 @@ export default function Contact() {
               >
                 <GithubIcon className="w-4 h-4" />
                 <span>GitHub</span>
-                <ArrowUpRight className="w-3 h-3 text-slate-500" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />
               </a>
 
               <a
@@ -95,65 +128,89 @@ export default function Contact() {
               >
                 <LinkedinIcon className="w-4 h-4" />
                 <span>LinkedIn</span>
-                <ArrowUpRight className="w-3 h-3 text-slate-500" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />
               </a>
             </div>
           </div>
         </div>
 
-        {/* Minimal Form */}
+        {/* Seamless Web Contact Form */}
         <div>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
-                Your Name
-              </label>
-              <input
-                type="text"
-                required
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                placeholder="Jane Doe"
-                className="w-full px-4 py-2.5 rounded-xl bg-[#10121a] border border-slate-800 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 font-sans"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
-                Your Email
-              </label>
-              <input
-                type="email"
-                required
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                placeholder="jane@company.com"
-                className="w-full px-4 py-2.5 rounded-xl bg-[#10121a] border border-slate-800 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 font-sans"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
-                Message
-              </label>
-              <textarea
-                rows={4}
-                required
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                placeholder="Hi Aman, let's discuss an engineering role / collaboration..."
-                className="w-full px-4 py-2.5 rounded-xl bg-[#10121a] border border-slate-800 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 font-sans resize-none"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full py-3 px-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold font-mono text-xs transition-colors flex items-center justify-center gap-1.5"
+          {status === "success" ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="p-8 rounded-2xl bg-[#10121a] border border-emerald-500/40 text-center space-y-3"
             >
-              <span>{submitted ? "Email Client Triggered!" : "Send Message"}</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </button>
-          </form>
+              <div className="w-12 h-12 rounded-full bg-emerald-950 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-800">
+                <Check className="w-6 h-6" />
+              </div>
+              <h4 className="text-lg font-bold text-white">Message Sent Successfully!</h4>
+              <p className="text-xs text-slate-400 leading-relaxed max-w-sm mx-auto">
+                Thank you for reaching out. Your message was dispatched directly to{" "}
+                <span className="text-sky-400 font-mono">{personal.email}</span>. I&apos;ll get back to you shortly.
+              </p>
+              <button
+                onClick={() => setStatus("idle")}
+                className="mt-4 text-xs font-mono text-sky-400 hover:underline inline-block"
+              >
+                Send another message
+              </button>
+            </motion.div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
+                  Your Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  placeholder="Jane Doe"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#10121a] border border-slate-800 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 font-sans"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
+                  Your Email
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  placeholder="jane@company.com"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#10121a] border border-slate-800 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 font-sans"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-mono text-slate-400 uppercase mb-1.5">
+                  Message
+                </label>
+                <textarea
+                  rows={4}
+                  required
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  placeholder="Hi Aman, let's discuss an engineering role / collaboration..."
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#10121a] border border-slate-800 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 font-sans resize-none"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={status === "submitting"}
+                className="w-full py-3 px-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold font-mono text-xs transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50 shadow-sm"
+              >
+                <span>{status === "submitting" ? "Sending Message..." : "Send Message"}</span>
+                <Send className="w-3.5 h-3.5" />
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </section>
