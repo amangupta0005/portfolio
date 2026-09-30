@@ -76,7 +76,7 @@ export const PORTFOLIO_DATA = {
         "Systemd",
         "Zod",
       ],
-      repoUrl: "https://github.com/aman-coder-005/resume-ecosystem-builder",
+      repoUrl: "https://github.com/amangupta0005/resume-ecosystem-builder",
       liveUrl: "http://aman-resumes.duckdns.org/",
     },
     {
@@ -106,7 +106,7 @@ export const PORTFOLIO_DATA = {
         "AWS EC2",
         "GitHub Actions",
       ],
-      repoUrl: "https://github.com/aman-coder-005/QuickGpt",
+      repoUrl: "https://github.com/amangupta0005/QuickGpt",
       liveUrl: "https://quickgpt-api.duckdns.org/",
     },
     {
@@ -134,7 +134,7 @@ export const PORTFOLIO_DATA = {
         "AWS EC2",
         "DuckDNS",
       ],
-      repoUrl: "https://github.com/aman-coder-005/crypto-project",
+      repoUrl: "https://github.com/amangupta0005/crypto-project",
       liveUrl: "https://cryptostack-aman.duckdns.org/",
     },
     {
@@ -161,7 +161,7 @@ export const PORTFOLIO_DATA = {
         "NLTK",
         "spaCy",
       ],
-      repoUrl: "https://github.com/aman-coder-005/acadSecure",
+      repoUrl: "https://github.com/amangupta0005/acadSecure",
     },
   ] as Project[],
 
