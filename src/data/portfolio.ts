@@ -160,24 +160,6 @@ export const PORTFOLIO_DATA = {
       liveUrl: "https://cryptostack-aman.duckdns.org",
     },
     {
-      id: "collabtrack",
-      title: "CollabTrack – Student Collaboration Platform",
-      tagline: "Centralized collaboration portal with role-based access & team milestone tracking",
-      description:
-        "Full-stack student collaboration portal allowing users to post projects, assign roles, and track team milestones in real time.",
-      category: "Full-Stack Web Systems",
-      domains: ["Full-Stack"],
-      status: "completed",
-      featured: true,
-      impactPoints: [
-        "Architected CollabTrack, a centralized student collaboration portal facilitating project recruitment, role delegation, and workflow management.",
-        "Implemented secure JWT authentication and role-based access control (RBAC) across Express REST APIs and MongoDB Atlas collections.",
-        "Designed a clean, responsive dashboard in React and TailwindCSS, streamlining team formation and milestone tracking for student teams.",
-      ],
-      techStack: ["MongoDB", "Express", "React", "Node.js", "JWT", "TailwindCSS"],
-      repoUrl: "https://github.com/amangupta0005/Collab_Track",
-    },
-    {
       id: "acadsecure",
       title: "AcadSecure – AI Plagiarism & Collusion Detection",
       tagline: "NLP semantic analysis engine with Ethereum blockchain audit proofs",
@@ -205,6 +187,24 @@ export const PORTFOLIO_DATA = {
         "spaCy",
       ],
       repoUrl: "https://github.com/amangupta0005/acadSecure",
+    },
+    {
+      id: "collabtrack",
+      title: "CollabTrack – Student Collaboration Platform",
+      tagline: "Centralized collaboration portal with role-based access & team milestone tracking",
+      description:
+        "Full-stack student collaboration portal allowing users to post projects, assign roles, and track team milestones in real time.",
+      category: "Full-Stack Web Systems",
+      domains: ["Full-Stack"],
+      status: "completed",
+      featured: true,
+      impactPoints: [
+        "Architected CollabTrack, a centralized student collaboration portal facilitating project recruitment, role delegation, and workflow management.",
+        "Implemented secure JWT authentication and role-based access control (RBAC) across Express REST APIs and MongoDB Atlas collections.",
+        "Designed a clean, responsive dashboard in React and TailwindCSS, streamlining team formation and milestone tracking for student teams.",
+      ],
+      techStack: ["MongoDB", "Express", "React", "Node.js", "JWT", "TailwindCSS"],
+      repoUrl: "https://github.com/amangupta0005/Collab_Track",
     },
     {
       id: "neuroshield",
