@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, ArrowUpRight, FileDown, Layers, Terminal } from "lucide-react";
+import { ArrowDown, ArrowUpRight, FileDown, Sparkles, Terminal } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 
 export default function Hero() {
@@ -28,9 +28,11 @@ export default function Hero() {
         {/* Role: SOFTWARE ENGINEER — FULL-STACK */}
         <div className="flex flex-wrap items-center gap-2 text-xl sm:text-2xl font-mono text-sky-400 mb-6 font-semibold">
           <span>{personal.role}</span>
+          <span className="text-slate-600 font-normal">/</span>
+          <span className="text-slate-400 text-base sm:text-lg font-normal">{personal.subrole}</span>
         </div>
 
-        {/* Verbatim Professional Summary from your Resume */}
+        {/* Verbatim Professional Summary from Candidate Resume Ecosystem */}
         <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl mb-8 font-normal">
           {personal.bio}
         </p>
@@ -38,19 +40,22 @@ export default function Hero() {
         {/* Full-Stack Core Highlight Strip */}
         <div className="flex flex-wrap gap-2 mb-8 text-xs font-mono">
           <span className="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-200 border border-slate-800">
-            React & Next.js
+            Next.js 14 & React 18
           </span>
           <span className="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-200 border border-slate-800">
             Node.js & Express
           </span>
           <span className="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-200 border border-slate-800">
-            MongoDB Atlas & PostgreSQL
+            PostgreSQL & Prisma ORM
           </span>
           <span className="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-200 border border-slate-800">
-            Prisma ORM
+            Redis 7 Caching & Rate Limiting
+          </span>
+          <span className="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-200 border border-slate-800">
+            Docker & AWS EC2
           </span>
           <span className="px-3 py-1.5 rounded-lg bg-slate-900 text-sky-300 border border-slate-800">
-            LLMs & AI Product Patterns
+            Gemini 3.5 / 2.5 Flash & LLMs
           </span>
         </div>
 
@@ -60,7 +65,7 @@ export default function Hero() {
             href="#projects"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold transition-colors shadow-sm"
           >
-            <span>Explore Full-Stack Work</span>
+            <span>Explore 10 Projects</span>
             <ArrowDown className="w-4 h-4" />
           </a>
 
@@ -89,12 +94,12 @@ export default function Hero() {
             <div className="text-xs text-slate-400 font-mono mt-0.5">B.E. Computer Science CGPA</div>
           </div>
           <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80">
-            <div className="text-2xl font-bold font-mono text-sky-400">Model → API → UI</div>
-            <div className="text-xs text-slate-400 font-mono mt-0.5">End-to-End Ownership</div>
+            <div className="text-2xl font-bold font-mono text-sky-400">10 Projects</div>
+            <div className="text-xs text-slate-400 font-mono mt-0.5">Full-Stack, AI & IoT Systems</div>
           </div>
           <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 col-span-2 sm:col-span-1">
-            <div className="text-2xl font-bold font-mono text-emerald-400">Live Deployments</div>
-            <div className="text-xs text-slate-400 font-mono mt-0.5">QuickGPT & Resume Ecosystem</div>
+            <div className="text-2xl font-bold font-mono text-emerald-400">3 Live on AWS EC2</div>
+            <div className="text-xs text-slate-400 font-mono mt-0.5">Resume ATS, QuickGPT & Crypto</div>
           </div>
         </div>
       </motion.div>

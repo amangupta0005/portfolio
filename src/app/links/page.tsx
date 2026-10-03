@@ -1,50 +1,62 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, FileDown, Mail } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, FileDown, Mail, Globe } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/SocialIcons";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 
 export const metadata = {
   title: "Links — Aman Gupta",
-  description: "Connect with Aman Gupta — Python & AI/ML Engineer.",
+  description: "Connect with Aman Gupta — Full-Stack Software Engineer & AI Systems Developer.",
 };
 
 export default function LinksPage() {
-  const { personal, projects } = PORTFOLIO_DATA;
+  const { personal } = PORTFOLIO_DATA;
 
   const links = [
     {
       title: "GitHub (@amangupta0005)",
-      desc: "Open source AI models, full-stack repos & codebases",
+      desc: "10 open source repositories, cloud stacks & AI architectures",
       href: personal.socials.github,
       icon: <GithubIcon className="w-5 h-5 text-white" />,
     },
     {
       title: "LinkedIn Profile",
-      desc: "Connect professionally and view recommendations",
+      desc: "Connect professionally, view recommendations & network",
       href: personal.socials.linkedin,
       icon: <LinkedinIcon className="w-5 h-5 text-sky-400" />,
     },
     {
-      title: "QuickGPT (Live App)",
-      desc: "Full-stack AI chatbot platform powered by Gemini 2.5",
-      href: "https://quick-gpt-smoky.vercel.app/",
+      title: "Resume Ecosystem Builder (Live AWS App)",
+      desc: "Hybrid ATS JD matching with Gemini 3.5 Flash & Redis 7",
+      href: "http://aman-resumes.duckdns.org",
+      icon: <ArrowUpRight className="w-5 h-5 text-sky-400" />,
+    },
+    {
+      title: "QuickGPT (Live AWS App)",
+      desc: "Full-stack multimodal AI chatbot powered by Gemini 2.5 Flash",
+      href: "https://quickgpt-api.duckdns.org",
       icon: <ArrowUpRight className="w-5 h-5 text-emerald-400" />,
     },
     {
-      title: "Resume Ecosystem Builder (Live App)",
-      desc: "Dynamic ATS-optimized multi-variant resume builder",
-      href: "https://resume-ecosystem-builder.vercel.app/links",
-      icon: <ArrowUpRight className="w-5 h-5 text-sky-400" />,
+      title: "CryptoStack (Live AWS App)",
+      desc: "Real-time crypto intelligence with WebSockets & Redis 7",
+      href: "https://cryptostack-aman.duckdns.org",
+      icon: <ArrowUpRight className="w-5 h-5 text-amber-400" />,
+    },
+    {
+      title: "Interactive Portfolio Website",
+      desc: "Full-stack project deep dives, architecture highlights & tech stack",
+      href: personal.socials.portfolio,
+      icon: <Globe className="w-5 h-5 text-indigo-400" />,
     },
     {
       title: "Direct Email Dispatch",
       desc: personal.email,
       href: personal.socials.email,
-      icon: <Mail className="w-5 h-5 text-amber-400" />,
+      icon: <Mail className="w-5 h-5 text-rose-400" />,
     },
     {
       title: "Download Resume (PDF)",
-      desc: "9.38 CGPA, verified coursework & certifications",
+      desc: "9.38 CGPA, verified engineering projects & credentials",
       href: "/Aman_Gupta_Resume.pdf",
       icon: <FileDown className="w-5 h-5 text-blue-400" />,
       download: true,
