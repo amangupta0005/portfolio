@@ -10,7 +10,10 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#090a0f]/90 backdrop-blur-md border-b border-slate-800/80">
       <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Brand */}
-        <Link href="/" className="flex items-center gap-2.5 text-sm font-semibold tracking-tight text-white hover:text-sky-400 transition-colors">
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 text-sm font-semibold tracking-tight text-white hover:text-sky-400 transition-colors"
+        >
           <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse" />
           <span>Aman Gupta</span>
           <span className="text-slate-600">/</span>
@@ -19,30 +22,36 @@ export default function Header() {
 
         {/* Navigation & Actions */}
         <div className="flex items-center gap-4 text-xs font-mono">
-          <a
-            href="#projects"
+          <Link
+            href="/#projects"
             className="text-slate-400 hover:text-white transition-colors hidden sm:inline"
           >
-            Projects
-          </a>
-          <a
-            href="#skills"
+            Featured
+          </Link>
+          <Link
+            href="/projects"
+            className="text-slate-400 hover:text-sky-400 transition-colors hidden sm:inline"
+          >
+            All Projects (10)
+          </Link>
+          <Link
+            href="/#skills"
             className="text-slate-400 hover:text-white transition-colors hidden sm:inline"
           >
             Stack
-          </a>
-          <a
-            href="#education"
+          </Link>
+          <Link
+            href="/#education"
             className="text-slate-400 hover:text-white transition-colors hidden sm:inline"
           >
             Education
-          </a>
-          <a
-            href="#contact"
+          </Link>
+          <Link
+            href="/#contact"
             className="text-slate-400 hover:text-white transition-colors hidden sm:inline"
           >
             Contact
-          </a>
+          </Link>
 
           <div className="h-4 w-px bg-slate-800 mx-1 hidden sm:block" />
 
