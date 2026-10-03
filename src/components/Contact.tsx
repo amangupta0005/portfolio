@@ -79,6 +79,8 @@ export default function Contact() {
                   ag79216767@gmail.com
                 </a>
                 <button
+                  type="button"
+                  suppressHydrationWarning
                   onClick={handleCopy}
                   className="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
                   title="Copy email"
@@ -159,6 +161,7 @@ export default function Contact() {
                 <input
                   type="text"
                   required
+                  suppressHydrationWarning
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   placeholder="Jane Doe"
@@ -173,6 +176,7 @@ export default function Contact() {
                 <input
                   type="email"
                   required
+                  suppressHydrationWarning
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   placeholder="jane@company.com"
@@ -187,6 +191,7 @@ export default function Contact() {
                 <textarea
                   rows={4}
                   required
+                  suppressHydrationWarning
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
                   placeholder="Hi Aman, let's discuss an engineering role / collaboration..."
@@ -202,6 +207,7 @@ export default function Contact() {
 
               <button
                 type="submit"
+                suppressHydrationWarning
                 disabled={status === "submitting"}
                 className="w-full py-3 px-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold font-mono text-xs transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50 shadow-sm"
               >

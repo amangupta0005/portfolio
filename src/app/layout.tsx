@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aman Gupta — Python & AI/ML Engineer",
+  title: "Aman Gupta — Software Engineer (Full-Stack)",
   description:
-    "Portfolio of Aman Gupta. Python & AI/ML Engineer specializing in Deep Learning, NLP Transformers, and Full-Stack Systems.",
+    "Portfolio of Aman Gupta — Software Engineer specializing in Next.js 14, React 18, TypeScript, Node.js, Express, PostgreSQL, Redis, and Applied AI.",
 };
 
 export default function RootLayout({
@@ -24,8 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#090a0f] text-slate-100 min-h-screen flex flex-col`}
       >
         {children}
